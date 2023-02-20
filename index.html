@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title>Modal</title>
+
+	<!-- LINK BOOTSTRAP -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+	<!-- LINK JQUERY -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var tipo;
+			var nome;
+			var telefone;
+			var texto = "";
+			
+			// Botão Reset
+			$(".reset").click(function() {
+				$(".input_texto").val("");
+				$(".tipo_telefone").prop('checked', false);
+			});
+
+			// VARIAVEL (RADIO)
+			$("#tipo_fixo").change(function() {
+				tipo = $(this).val();
+			});
+			$("#tipo_cel").change(function() {
+				tipo = $(this).val();
+			});
+			$("#tipo_wpp").change(function() {
+				tipo = $(this).val();
+			});
+
+			// ENVIO INFORMAÇÕES
+			$(".envio").click(function() {
+				$("#modal_cadastro").modal('hide');
+				nome = $("#nm_cliente").val();
+				telefone = $("#telefone").val();
+
+				texto += "<tr><td>" + nome + "</td><td>" + telefone + "</td><td>" + tipo + "</td></tr>";
+				$("#clientes").append(texto);
+
+				nome = null;
+				telefone = null;
+				texto = null;
+				tipo = null;
+
+				$(".input_texto").val("");
+				$(".tipo_telefone").prop('checked', false);
+
+			});
+		});
+	</script>
+</head>
+
+<body>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+
+	<div class="container-fluid">
+		<div class="center">
+			<div class="tela">
+				<div class="top">
+					<p>Cadastre um novo número:</p>
+
+					<!-- Button trigger modal -->
+					<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_cadastro">Adicionar Cadastro</button>
+				</div><!-- top -->
+				<div class="conteudo">
+					<table id="clientes">
+						<tr>
+							<th>Nome</th>
+							<th>Telefone</th>
+							<th>Tipo</th>
+						</tr>
+					</table>
+				</div><!-- conteudo -->
+			</div><!-- tela -->
+		</div><!-- center -->
+
+
+
+		<!-- Modal -->
+		<div class="modal fade" id="modal_cadastro" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="ModalLabel">Cadastro</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div class="mb-3">
+							<label for="nm_cliente" class="form-label">Nome do Cliente:</label>
+							<input type="email" class="form-control input_texto" id="nm_cliente" aria-describedby="emailHelp">
+						</div>
+						<div class="mb-3">
+							<label for="telefone" class="form-label">Telefone: </label>
+							<input type="number" class="form-control input_texto" id="telefone" max="10">
+						</div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input tipo_telefone" type="radio" name="tipo_telefone" id="tipo_fixo" value="Fixo">
+							<label class="form-check-label" for="tipo_fixo">Fixo</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input tipo_telefone" type="radio" name="tipo_telefone" id="tipo_cel" value="Celular">
+							<label class="form-check-label" for="tipo_cel">Celular</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input tipo_telefone" type="radio" name="tipo_telefone" id="tipo_wpp" value="Whatsapp">
+							<label class="form-check-label" for="tipo_wpp">Whatsapp</label>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-danger reset">Reset</button>
+						<button type="button" class="btn btn-primary envio">Save changes</button>
+					</div>
+				</div>
+			</div>
+		</div> <!-- modal -->
+	</div><!-- container fluid -->
+</body>
+
+</html>
